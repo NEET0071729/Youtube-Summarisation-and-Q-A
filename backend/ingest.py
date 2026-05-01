@@ -13,11 +13,11 @@ def process_youtube_url(video_url: str):
     docs = loader.load()
 
     # splitting Documents[cite: 1]
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap = 150)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size = 500, chunk_overlap = 80)
     splited_text = text_splitter.split_documents(docs)
 
     # Indexing and Embedding initialising[cite: 1]
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001", task_type="retrieval_document")
     vectorstore = Chroma.from_documents(splited_text, embedding=embeddings, persist_directory="./data/chroma_db")
     
     return True

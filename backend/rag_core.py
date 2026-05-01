@@ -11,14 +11,15 @@ load_dotenv()
 
 def get_rag_chain():
     # retriever function[cite: 2]
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001", task_type="retrieval_query", max_retries=5)
     vectorstore = Chroma(persist_directory="./data/chroma_db", embedding_function=embeddings)
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
     # query re-writer for retrievel[cite: 2]
     contextual_query_system_prompt =  """You are to create a query using chat history and question. 
     The query will be a standalone question that will be used for retrieving information.
-    Do not send empty question."""
+    Do not send empty question.
+    """
 
     contextual_query_prompt = ChatPromptTemplate.from_messages([
             ("system", contextual_query_system_prompt),
@@ -38,10 +39,10 @@ def get_rag_chain():
         ("human", "{input}")
     ])
 
-    llm = ChatGoogleGenerativeAI(model="models/gemini-2.5-flash", temperature= 0)
-
+    llm = ChatGoogleGenerativeAI(model="gemini-3-flash-preview", temperature= 0)
+    llm2 = ChatGoogleGenerativeAI(model="models/gemini-2.5-flash-lite", temperature= 0)
     # retrieving using remade query stage[cite: 2]
-    rephrase_chain = contextual_query_prompt | llm | StrOutputParser()
+    rephrase_chain = contextual_query_prompt | llm2 | StrOutputParser()
 
     # formatting retrieved docs[cite: 2]
     def format_docs(docs):
@@ -52,7 +53,13 @@ def get_rag_chain():
         
     def context_retriever(input_dict):
         if input_dict.get("chat_history"):
-            return rephrase_chain
+            rephrased = rephrase_chain.invoke({
+                "input": input_dict["input"],
+                "chat_history": input_dict["chat_history"]
+            })
+            print(f"[DEBUG] Rephrased query: {repr(rephrased)}")
+            # Fall back to original input if rephrase returned empty
+            return rephrased.strip() if rephrased and rephrased.strip() else input_dict["input"]
         else:
             return input_dict["input"]
         

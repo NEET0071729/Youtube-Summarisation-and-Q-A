@@ -1,5 +1,11 @@
-numpy
 langchain
 langchain-google-genai
 langchain-community
 chromadb
+youtube-transcript-api
+pytube
+langchain-text-splitters
+google-generativeai
+langchain-core
+fastapi
+uvicorn

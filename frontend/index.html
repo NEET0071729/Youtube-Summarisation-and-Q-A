@@ -621,9 +621,9 @@
         <!-- RIGHT: Chat -->
         <section class="panel-right">
             <div class="chat-header">
-                <div class="chat-header-dot" id="status-dot"></div>
+                <div class="chat-header-dot active" id="status-dot"></div>
                 <h2>Chat</h2>
-                <p id="status-text">Ingest a video to start chatting</p>
+                <p id="status-text">Ready to chat</p>
             </div>
 
             <div id="messages">
@@ -632,14 +632,14 @@
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                     </svg>
-                    <p>Load a YouTube video on the left, then ask questions about its content here.</p>
+                    <p>Ask a question to start the conversation. You can load a YouTube video to chat about its content.</p>
                 </div>
             </div>
 
             <div class="chat-input-bar">
-                <textarea id="chat-input" rows="1" placeholder="Ask something about the video…" disabled
+                <textarea id="chat-input" rows="1" placeholder="Ask a question…"
                     onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-                <button class="btn-send" id="btn-send" disabled onclick="sendMessage()">
+                <button class="btn-send" id="btn-send" onclick="sendMessage()">
                     <svg viewBox="0 0 24 24">
                         <line x1="22" y1="2" x2="11" y2="13" />
                         <polygon points="22 2 15 22 11 13 2 9 22 2" />
@@ -651,7 +651,6 @@
 
     <script>
         const API = 'http://localhost:8000';
-        let videoReady = false;
 
         // ─── Ingest ───────────────────────────────────────────────
         async function ingestVideo() {
@@ -712,7 +711,6 @@
         }
 
         function enableChat() {
-            videoReady = true;
             document.getElementById('chat-input').disabled = false;
             document.getElementById('btn-send').disabled = false;
             document.getElementById('chat-input').placeholder = 'Ask something about the video…';
@@ -742,7 +740,6 @@
         }
 
         async function sendMessage() {
-            if (!videoReady) return;
             const input = document.getElementById('chat-input');
             const text = input.value.trim();
             if (!text) return;
