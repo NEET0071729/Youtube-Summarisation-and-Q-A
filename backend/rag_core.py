@@ -4,6 +4,7 @@ from langchain_chroma import Chroma
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
+import time
 import os
 from dotenv import load_dotenv
 
@@ -11,7 +12,8 @@ load_dotenv()
 
 def get_rag_chain():
     # retriever function[cite: 2]
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001", task_type="retrieval_query", max_retries=5)
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectorstore = Chroma(persist_directory="./data/chroma_db", embedding_function=embeddings)
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
@@ -53,13 +55,8 @@ def get_rag_chain():
         
     def context_retriever(input_dict):
         if input_dict.get("chat_history"):
-            rephrased = rephrase_chain.invoke({
-                "input": input_dict["input"],
-                "chat_history": input_dict["chat_history"]
-            })
-            print(f"[DEBUG] Rephrased query: {repr(rephrased)}")
-            # Fall back to original input if rephrase returned empty
-            return rephrased.strip() if rephrased and rephrased.strip() else input_dict["input"]
+            time.sleep(61)
+            return rephrase_chain.invoke(input_dict)
         else:
             return input_dict["input"]
         

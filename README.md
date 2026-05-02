@@ -36,14 +36,14 @@ User Query + Chat History
 
 ### Tech Stack
 
-| Layer       | Technology                          |
-|-------------|-------------------------------------|
-| LLM         | Google Gemini 2.5 Pro               |
-| Embeddings  | `gemini-embedding-001`              |
-| Vector DB   | ChromaDB (local persistence)        |
-| RAG Framework | LangChain                         |
-| Backend     | FastAPI + Uvicorn                   |
-| Frontend    | Vanilla HTML / CSS / JavaScript     |
+| Layer       | Technology                                     |
+|-------------|------------------------------------------------|
+| LLM         | Google Gemini 2.5 Flash Lite, 3.o flash preview|
+| Embeddings  | `gemini-embedding-001`                         |
+| Vector DB   | ChromaDB (local persistence)                   |
+| RAG Framework | LangChain                                    |
+| Backend     | FastAPI + Uvicorn                              |
+| Frontend    | Vanilla HTML / CSS / JavaScript                |
 
 ---
 
