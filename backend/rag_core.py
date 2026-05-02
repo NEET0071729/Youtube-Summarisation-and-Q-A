@@ -13,7 +13,6 @@ load_dotenv()
 def get_rag_chain():
     # retriever function[cite: 2]
     embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectorstore = Chroma(persist_directory="./data/chroma_db", embedding_function=embeddings)
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
