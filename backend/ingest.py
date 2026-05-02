@@ -17,7 +17,8 @@ def process_youtube_url(video_url: str):
     splited_text = text_splitter.split_documents(docs)
 
     # Indexing and Embedding initialising[cite: 1]
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001", task_type="retrieval_document")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectorstore = Chroma.from_documents(splited_text, embedding=embeddings, persist_directory="./data/chroma_db")
     
     return True
