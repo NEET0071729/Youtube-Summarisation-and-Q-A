@@ -188,3 +188,8 @@ pyrightconfig.json
 # Ignore all local history of files
 .history
 .ionide
+
+# ChromaDB files
+chroma.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
