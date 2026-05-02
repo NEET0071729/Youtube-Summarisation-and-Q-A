@@ -48,11 +48,8 @@ def get_rag_chain():
 
     # formatting retrieved docs[cite: 2]
     def format_docs(docs):
-        context = ""
-        for dic in docs:
-            context = context + "\n\n" + dic.page_content
-        return context
-        
+        return "\n\n".join(doc.page_content for doc in docs)
+
     def context_retriever(input_dict):
         if input_dict.get("chat_history"):
             time.sleep(61)
