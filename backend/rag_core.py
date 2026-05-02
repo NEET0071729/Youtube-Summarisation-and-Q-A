@@ -52,8 +52,13 @@ def get_rag_chain():
 
     def context_retriever(input_dict):
         if input_dict.get("chat_history"):
-            time.sleep(61)
-            return rephrase_chain.invoke(input_dict)
+            rephrased = rephrase_chain.invoke({
+                "input": input_dict["input"],
+                "chat_history": input_dict["chat_history"]
+            })
+            print(f"[DEBUG] Rephrased query: {repr(rephrased)}")
+            # Fall back to original input if rephrase returned empty
+            return rephrased.strip() if rephrased and rephrased.strip() else input_dict["input"]
         else:
             return input_dict["input"]
         
