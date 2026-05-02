@@ -38,7 +38,7 @@ User Query + Chat History
 
 | Layer       | Technology                                     |
 |-------------|------------------------------------------------|
-| LLM         | Google Gemini 2.5 Flash Lite, 3.o flash preview|
+| LLM         | Google Gemini 2.5 Flash Lite, 3.0 flash preview|
 | Embeddings  | `gemini-embedding-001`                         |
 | Vector DB   | ChromaDB (local persistence)                   |
 | RAG Framework | LangChain                                    |
