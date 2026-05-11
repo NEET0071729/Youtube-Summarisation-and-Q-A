@@ -18,7 +18,6 @@ def process_youtube_url(video_url: str):
 
     # Indexing and Embedding initialising[cite: 1]
     embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectorstore = Chroma.from_documents(splited_text, embedding=embeddings, persist_directory="./data/chroma_db")
     
     return True
