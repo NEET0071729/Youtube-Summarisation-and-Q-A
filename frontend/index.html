@@ -632,13 +632,14 @@
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                     </svg>
-                    <p>Ask a question to start the conversation. You can load a YouTube video to chat about its content.</p>
+                    <p>Ask a question to start the conversation. You can load a YouTube video to chat about its content.
+                    </p>
                 </div>
             </div>
 
             <div class="chat-input-bar">
-                <textarea id="chat-input" rows="1" placeholder="Ask a question…"
-                    onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+                <textarea id="chat-input" rows="1" placeholder="Ask a question…" onkeydown="handleKey(event)"
+                    oninput="autoResize(this)"></textarea>
                 <button class="btn-send" id="btn-send" onclick="sendMessage()">
                     <svg viewBox="0 0 24 24">
                         <line x1="22" y1="2" x2="11" y2="13" />
@@ -650,7 +651,7 @@
     </main>
 
     <script>
-        const API = 'http://localhost:8000';
+        const API = 'http://13.235.244.104:8000';
 
         // ─── Ingest ───────────────────────────────────────────────
         async function ingestVideo() {
